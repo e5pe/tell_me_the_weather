@@ -1,13 +1,18 @@
 <!-- the_weather/weather/templates/weather/index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tell me the weather</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css" integrity="sha256-D9M5yrVDqFlla7nlELDaYZIpXfFWDytQtiV+TaH6F1I=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css"
+        integrity="sha256-D9M5yrVDqFlla7nlELDaYZIpXfFWDytQtiV+TaH6F1I=" crossorigin="anonymous" />
+
+    <script src="https://kit.fontawesome.com/b73e2b4b21.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <section class="hero is-primary">
         <div class="hero-body">
@@ -20,9 +25,10 @@
     </section>
     <section class="section">
         <div class="container">
-            <div class="columns">
-                <div class="column is-offset-4 is-4">
+            <div class="columns is-mobile">
+                <div class="column is-centered">
                     <form method="POST">
+                        {% csrf_token %}
                         <div class="field has-addons">
                             <div class="control is-expanded">
                                 <input class="input" type="text" placeholder="City Name">
@@ -41,22 +47,31 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-offset-4 is-4">
+                <div class="column is-centered is-half is-offset-one-quarter"> 
                     <div class="box">
                         <article class="media">
                             <div class="media-left">
                                 <figure class="image is-50x50">
-                                    <img src="http://openweathermap.org/img/w/10d.png" alt="Image">
+                                    <img src="http://openweathermap.org/img/w/{{city_weather.icon}}.png" alt="Image">
                                 </figure>
                             </div>
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <span class="title">Las Vegas</span>
+                                        <span class="title">{{city_weather.city}}</span>
                                         <br>
-                                        <span class="subtitle">29° F</span>
-                                        <br> thunderstorm with heavy rain
+                                        <span class="subtitle">{{city_weather.temperature}}º {{city_weather.units}}</span>
+                                        <br> {{city_weather.description}}
+                                        <br>
                                     </p>
+                                </div>
+                            </div>
+                            <div class="media-right">
+                                <div class="level">
+                                    <div class="level-item">
+                                        <i class="fas fa-location-arrow"
+                                            data-fa-transform="rotate--45 rotate-{{city_weather.wind.deg}}"></i>
+                                    </div>
                                 </div>
                             </div>
                         </article>
@@ -66,6 +81,11 @@
         </div>
     </section>
     <footer class="footer">
+        <a href="https://bulma.io" class="is-pulled-right">
+            {% load static %}
+            <img src="{% static 'web/made-with-bulma.png' %}" alt="Made with Bulma" width="128" height="24">
+        </a>
     </footer>
 </body>
+
 </html>
