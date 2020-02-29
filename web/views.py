@@ -5,6 +5,10 @@ import requests
 API_KEY = config('API_KEY')
 
 def index(request):
+    if request.method == 'POST':
+        peticion = request.POST
+        print(peticion)
+
     temperatureUnits = 'c'
     units=getTemperature(temperatureUnits.lower()) # by default now is gonna be in celsius
     # url = 'https://api.openweathermap.org/data/2.5/weather?q={}&units={}&appid={}'
