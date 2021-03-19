@@ -7,7 +7,7 @@ verify_ssl = true
 pytest = "*"
 
 [packages]
-django = "==3.0.3"
+django = "==3.1.6"
 autopep8 = "==1.4.4"
 pylint = "*"
 python-decouple = "*"
